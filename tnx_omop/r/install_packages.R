@@ -3,7 +3,10 @@
 # must be installed and found by R (JAVA_HOME) even though DuckDB itself needs no Java.
 #   Rscript install_packages.R
 
-options(repos = c(CRAN = "https://cloud.r-project.org"))
+# Keep a mirror that is already configured (for example one with Linux binaries).
+if (getOption("repos")[["CRAN"]] %in% c("", "@CRAN@")) {
+  options(repos = c(CRAN = "https://cloud.r-project.org"))
+}
 if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
