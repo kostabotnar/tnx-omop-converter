@@ -1,4 +1,7 @@
-"""Create OMOP CDM_SOURCE table from TriNetX dataset metadata."""
+"""Read TriNetX dataset metadata files for the OMOP CDM_SOURCE table.
+
+The table logic is in transformers/cdm_source.py.
+"""
 
 from datetime import date
 from pathlib import Path
@@ -6,13 +9,11 @@ from typing import Iterable
 
 import polars as pl
 
+from .transformers.cdm_source import CDM_VERSION_CONCEPT_ID, transform_cdm_source
 from .util import columns as col
 from .util import tables as tbl
 
-CDM_VERSION = "v5.4"
-CDM_VERSION_CONCEPT_ID = 756265  # OMOP CDM Version 5.4
-SOURCE_ABBREVIATION = "TriNetX"
-ETL_REFERENCE = "tnx-omop-converter"
+__all__ = ["CDM_VERSION_CONCEPT_ID", "build_cdm_source"]
 
 
 def _read_column(data_dirs: Iterable[Path], table_name: str, column: str) -> list:
@@ -42,53 +43,10 @@ def build_cdm_source(
         source_release_date falls back to cdm_release_date.
     """
     data_dirs = list(data_dirs)
-    networks = sorted(
-        set(_read_column(data_dirs, tbl.tnx_dataset_details, col.network_name))
-    )
-    cohorts = sorted(
-        set(_read_column(data_dirs, tbl.tnx_cohort_details, col.cohort_name))
-    )
-    created = [
-        d
-        for d in pl.Series(
-            _read_column(data_dirs, tbl.tnx_dataset_details, col.date_created),
-            dtype=pl.Utf8,
-        )
-        .str.to_date("%Y%m%d", strict=False)
-        .to_list()
-        if d is not None
-    ]
-
-    source_name = "; ".join(networks) or "TriNetX export"
-    description = "TriNetX EHR export"
-    if cohorts:
-        description += f". Cohorts: {'; '.join(cohorts)}"
-
-    return pl.DataFrame(
-        {
-            col.cdm_source_name: [source_name],
-            col.cdm_source_abbreviation: [SOURCE_ABBREVIATION],
-            col.cdm_holder: [source_name],
-            col.source_description: [description],
-            col.source_documentation_reference: [None],
-            col.cdm_etl_reference: [ETL_REFERENCE],
-            col.source_release_date: [max(created) if created else cdm_release_date],
-            col.cdm_release_date: [cdm_release_date],
-            col.cdm_version: [CDM_VERSION],
-            col.cdm_version_concept_id: [CDM_VERSION_CONCEPT_ID],
-            col.vocabulary_version: [vocabulary_version],
-        },
-        schema={
-            col.cdm_source_name: pl.Utf8,
-            col.cdm_source_abbreviation: pl.Utf8,
-            col.cdm_holder: pl.Utf8,
-            col.source_description: pl.Utf8,
-            col.source_documentation_reference: pl.Utf8,
-            col.cdm_etl_reference: pl.Utf8,
-            col.source_release_date: pl.Date,
-            col.cdm_release_date: pl.Date,
-            col.cdm_version: pl.Utf8,
-            col.cdm_version_concept_id: pl.Int64,
-            col.vocabulary_version: pl.Utf8,
-        },
+    return transform_cdm_source(
+        _read_column(data_dirs, tbl.tnx_dataset_details, col.network_name),
+        _read_column(data_dirs, tbl.tnx_cohort_details, col.cohort_name),
+        _read_column(data_dirs, tbl.tnx_dataset_details, col.date_created),
+        cdm_release_date,
+        vocabulary_version,
     )
