@@ -1,4 +1,4 @@
-"""Unit tests for tnx_omop.validation on small hand-written and converted outputs."""
+"""Unit tests for tnx_omop.quality.validation on small hand-written and converted outputs."""
 
 from datetime import date
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 import polars as pl
 import pytest
 
-from tnx_omop import validation
+from tnx_omop.quality import validation
 from tnx_omop.schema.domains import NO_SOURCE_CONCEPT, NO_STANDARD_MAPPING
 from tnx_omop.merge import COVERAGE_FILE
 from tnx_omop.schema.omop import (
@@ -19,7 +19,7 @@ from tnx_omop.schema.omop import (
 from tnx_omop.transformers.clinical import COVERAGE_SCHEMA
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables
-from tnx_omop.validation import (
+from tnx_omop.quality.validation import (
     STANDARD_CONCEPT,
     Issue,
     check_all_tables_present,

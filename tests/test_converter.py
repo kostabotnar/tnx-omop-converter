@@ -30,7 +30,7 @@ from tnx_omop.schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
 from tnx_omop.run_report import REPORT_FILE, REPORT_TEMP_FILE
 from tnx_omop.transformers.clinical import COVERAGE_SCHEMA
 from tnx_omop.transformers.sources import SOURCE_ADAPTERS
-from tnx_omop.validation import validate
+from tnx_omop.quality.validation import validate
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms
 from tnx_omop.schema.trinetx import DictionaryRow

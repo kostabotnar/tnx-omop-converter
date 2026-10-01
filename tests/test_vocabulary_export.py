@@ -18,7 +18,7 @@ from tnx_omop.omop_vocab.concept_table import table_path
 from tnx_omop.run_report import REPORT_FILE
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
-from tnx_omop.validation import validate
+from tnx_omop.quality.validation import validate
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms
 from tests.test_converter import _write_zip

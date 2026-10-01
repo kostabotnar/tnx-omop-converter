@@ -16,19 +16,19 @@ from pathlib import Path
 
 import polars as pl
 
-from .schema.domains import (
+from ..schema.domains import (
     DOMAIN_TABLES,
     EVENT_CONCEPT_COLUMNS,
     NO_SOURCE_CONCEPT,
     NO_STANDARD_MAPPING,
     UNSUPPORTED_DOMAIN,
 )
-from .merge import COVERAGE_FILE
-from .schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS, TableSchema
-from .omop_vocab.concept_table import table_path
-from .transformers.clinical import COVERAGE_SCHEMA
-from .util import columns as col
-from .util import tables
+from ..merge import COVERAGE_FILE
+from ..schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS, TableSchema
+from ..omop_vocab.concept_table import table_path
+from ..transformers.clinical import COVERAGE_SCHEMA
+from ..util import columns as col
+from ..util import tables
 
 CONCEPT_ID_SUFFIX = "_concept_id"
 SOURCE_CONCEPT_ID_SUFFIX = "_source_concept_id"

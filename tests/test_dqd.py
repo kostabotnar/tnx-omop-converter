@@ -1,4 +1,4 @@
-"""Tests for tnx_omop/dqd.py and the `dqd` subcommand.
+"""Tests for tnx_omop/quality/dqd.py and the `dqd` subcommand.
 
 R is replaced by a Python script that stands in for run_dqd.R, so these tests run
 without R. `TestWithR` runs the real script and is skipped unless Rscript and the
@@ -14,7 +14,8 @@ from pathlib import Path
 import pytest
 
 from tnx_omop import __main__ as entry
-from tnx_omop import cli, dqd
+from tnx_omop import cli
+from tnx_omop.quality import dqd
 from tnx_omop.converter import convert
 from tnx_omop.util import tables as tbl
 from tests.test_converter import _write_zip

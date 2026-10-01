@@ -22,16 +22,16 @@ from dataclasses import dataclass, field
 from fnmatch import fnmatchcase
 from pathlib import Path
 
-from .schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
-from .omop_vocab.concept_table import table_path
-from .util import tables
+from ..schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
+from ..omop_vocab.concept_table import table_path
+from ..util import tables
 
 logger = logging.getLogger(__name__)
 
 R_DIR = Path(__file__).parent / "r"
 R_SCRIPT = R_DIR / "run_dqd.R"
 INSTALL_SCRIPT = R_DIR / "install_packages.R"
-ACCEPTED_FILE = Path(__file__).parent / "config" / "dqd_accepted.json"
+ACCEPTED_FILE = Path(__file__).parent.parent / "config" / "dqd_accepted.json"
 RESULTS_DIR = "dqd"
 RESULTS_FILE = "dqd_results.json"
 DATABASE_FILE = "cdm.duckdb"
