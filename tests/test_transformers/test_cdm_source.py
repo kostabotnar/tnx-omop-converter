@@ -3,7 +3,7 @@
 from datetime import date
 
 from tests.schema_asserts import assert_conforms
-from tnx_omop.omop_schema import CDM_SOURCE_SCHEMA
+from tnx_omop.schema.omop import CDM_SOURCE_SCHEMA
 from tnx_omop.transformers.cdm_source import (
     CDM_VERSION_CONCEPT_ID,
     transform_cdm_source,

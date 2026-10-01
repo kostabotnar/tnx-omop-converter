@@ -5,7 +5,7 @@ from datetime import date
 
 import polars as pl
 
-from ..omop_schema import CDM_SOURCE_SCHEMA
+from ..schema.omop import CDM_SOURCE_SCHEMA
 from ..util import columns as col
 
 CDM_VERSION = "v5.4"
