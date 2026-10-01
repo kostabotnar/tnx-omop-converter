@@ -9,11 +9,9 @@ from typing import Iterable
 
 import polars as pl
 
-from .transformers.cdm_source import CDM_VERSION_CONCEPT_ID, transform_cdm_source
+from .transformers.cdm_source import transform_cdm_source
 from .util import columns as col
 from .util import tables as tbl
-
-__all__ = ["CDM_VERSION_CONCEPT_ID", "build_cdm_source"]
 
 
 def _read_column(data_dirs: Iterable[Path], table_name: str, column: str) -> list:
