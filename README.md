@@ -53,6 +53,22 @@ tnx-omop validate <output_dir>
 
 The optional `tnx-omop dqd <output_dir>` runs the OHDSI Data Quality Dashboard, see "Data Quality Dashboard" below. The example vocabulary is a small excerpt, so DQD results on the example are not meaningful for data quality.
 
+### Python API
+
+The two main steps can also be called from Python:
+
+```python
+from pathlib import Path
+
+from tnx_omop import convert, validate
+
+row_counts = convert([Path("export.zip")], Path("omop"), Path("athena"))
+report = validate(Path("omop"))
+print(report.ok)
+```
+
+`convert(input_zips, output_dir, vocab_dir, ...)` takes the same options as the `convert` subcommand as keyword arguments (`work_dir`, `batch_rows`, `keep_work_dir`, `config_path`, `export_vocabulary`, `eras`) and returns the row count per output table. `validate(output_dir)` returns a report whose `ok` is true when no check failed.
+
 ## Usage
 
 ```bash
