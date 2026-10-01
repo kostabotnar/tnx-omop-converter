@@ -9,8 +9,8 @@ from pathlib import Path
 
 from . import cli
 from .quality import dqd
-from . import eras as era_builder
-from .converter import convert
+from .pipeline import eras as era_builder
+from .pipeline.converter import convert
 from .example import write_example
 from .omop_vocab.athena import missing_files
 from .util import concept_mappings

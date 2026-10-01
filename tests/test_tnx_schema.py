@@ -12,7 +12,7 @@ import pytest
 
 from tnx_omop import __main__ as entry
 from tnx_omop.schema import trinetx
-from tnx_omop.converter import convert
+from tnx_omop.pipeline.converter import convert
 from tnx_omop.schema.trinetx import (
     DataDictionary,
     DataDictionaryError,

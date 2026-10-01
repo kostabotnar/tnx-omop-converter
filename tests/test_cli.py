@@ -9,8 +9,8 @@ import pytest
 
 from tnx_omop import __main__ as entry
 from tnx_omop import cli
-from tnx_omop.converter import convert
-from tnx_omop.ingest import DEFAULT_BATCH_ROWS
+from tnx_omop.pipeline.converter import convert
+from tnx_omop.pipeline.ingest import DEFAULT_BATCH_ROWS
 from tnx_omop.omop_vocab.concept_table import table_path
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl

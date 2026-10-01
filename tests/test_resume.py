@@ -9,11 +9,11 @@ import polars as pl
 import pytest
 from polars.testing import assert_frame_equal
 
-from tnx_omop import batch_transform as bt
-from tnx_omop import ingest
-from tnx_omop import manifest as mf
-from tnx_omop.batch_transform import IdCounters, transform_batch
-from tnx_omop.converter import build_vocab_lookup, convert
+from tnx_omop.pipeline import batch_transform as bt
+from tnx_omop.pipeline import ingest
+from tnx_omop.pipeline import manifest as mf
+from tnx_omop.pipeline.batch_transform import IdCounters, transform_batch
+from tnx_omop.pipeline.converter import build_vocab_lookup, convert
 from tnx_omop.util import tables as tbl
 from tests.test_converter import _read_output, _two_source_zips, _write_zip
 from tests.tnx_dictionary import DICTIONARY
@@ -195,7 +195,7 @@ def count_calls(monkeypatch: pytest.MonkeyPatch, target: str) -> list[tuple]:
     return calls
 
 
-FAIL_BATCH_2 = "tnx_omop.batch_transform.transform_batch"
+FAIL_BATCH_2 = "tnx_omop.pipeline.batch_transform.transform_batch"
 
 
 class TestResume:
@@ -214,7 +214,7 @@ class TestResume:
         assert not (work / "parts" / "coverage" / "00002.parquet").exists()
 
         restore()
-        raw_calls = count_calls(monkeypatch, "tnx_omop.ingest.write_raw")
+        raw_calls = count_calls(monkeypatch, "tnx_omop.pipeline.ingest.write_raw")
         batch_calls = count_calls(monkeypatch, FAIL_BATCH_2)
         caplog.set_level(logging.INFO)
         caplog.clear()
@@ -234,8 +234,8 @@ class TestResume:
     @pytest.mark.parametrize(
         ("target", "done"),
         [
-            ("tnx_omop.ingest.build_persons", ["raw"]),
-            ("tnx_omop.ingest.write_batches", ["raw", "persons"]),
+            ("tnx_omop.pipeline.ingest.build_persons", ["raw"]),
+            ("tnx_omop.pipeline.ingest.write_batches", ["raw", "persons"]),
         ],
     )
     def test_failure_in_ingest_stage_then_resume(
@@ -251,7 +251,7 @@ class TestResume:
         assert (work / ingest.RAW_DIR).exists()
 
         restore()
-        raw_calls = count_calls(monkeypatch, "tnx_omop.ingest.write_raw")
+        raw_calls = count_calls(monkeypatch, "tnx_omop.pipeline.ingest.write_raw")
         convert(zips, out, athena_dir, work_dir=work, batch_rows=BATCH_ROWS)
 
         assert not raw_calls
@@ -269,7 +269,7 @@ class TestResume:
             convert(zips, out, athena_dir, work_dir=work, batch_rows=BATCH_ROWS)
 
         restore()
-        raw_calls = count_calls(monkeypatch, "tnx_omop.ingest.write_raw")
+        raw_calls = count_calls(monkeypatch, "tnx_omop.pipeline.ingest.write_raw")
         caplog.set_level(logging.INFO)
         caplog.clear()
         convert(zips, out, athena_dir, work_dir=work, batch_rows=2)
@@ -285,7 +285,7 @@ class TestResume:
     ):
         zips = _two_source_zips(tmp_path)
         out, work = tmp_path / "omop", tmp_path / "work"
-        restore = fail_on(monkeypatch, "tnx_omop.ingest.write_batches")
+        restore = fail_on(monkeypatch, "tnx_omop.pipeline.ingest.write_batches")
         with pytest.raises(RuntimeError):
             convert(zips, out, athena_dir, work_dir=work, batch_rows=BATCH_ROWS)
         restore()

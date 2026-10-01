@@ -4,9 +4,9 @@ from typing import Dict, List, Optional
 
 import polars as pl
 
-from .util import tables as tbl
-from .util import columns as col
-from .util.date_utils import parse_month_year_death_column
+from ..util import tables as tbl
+from ..util import columns as col
+from ..util.date_utils import parse_month_year_death_column
 
 
 # Table files mapping (module-level for use in functions)

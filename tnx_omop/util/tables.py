@@ -25,7 +25,7 @@ omop_cdm_source = "CDM_SOURCE"
 omop_observation = "OBSERVATION"
 omop_device_exposure = "DEVICE_EXPOSURE"
 
-# Optional OMOP era tables, derived from the tables above (see eras.py)
+# Optional OMOP era tables, derived from the tables above (see pipeline/eras.py)
 omop_condition_era = "CONDITION_ERA"
 omop_drug_era = "DRUG_ERA"
 

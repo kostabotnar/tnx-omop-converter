@@ -32,11 +32,11 @@ import polars as pl
 from polars.io.partition import FileProviderArgs
 
 from .cleaning import DATE_COLUMN_MAP, TABLE_FILES
-from .schema.trinetx import DataDictionary, apply_data_types, drop_derived_columns
-from .util import columns as col
-from .util import tables as tbl
-from .util.date_utils import parse_month_year_death_column
-from .util.parquet_io import sink_parquet
+from ..schema.trinetx import DataDictionary, apply_data_types, drop_derived_columns
+from ..util import columns as col
+from ..util import tables as tbl
+from ..util.date_utils import parse_month_year_death_column
+from ..util.parquet_io import sink_parquet
 
 DEFAULT_BATCH_ROWS = 5_000_000
 

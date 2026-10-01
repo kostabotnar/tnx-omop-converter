@@ -10,12 +10,12 @@ import polars as pl
 import pytest
 
 from tnx_omop import __main__ as entry
-from tnx_omop.converter import STAGE_VOCABULARY_EXPORT, convert
+from tnx_omop.pipeline.converter import STAGE_VOCABULARY_EXPORT, convert
 from tnx_omop.schema.omop import CONCEPT_SCHEMA, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
 from tnx_omop.omop_vocab import vocabulary_export
 from tnx_omop.omop_vocab.athena import scan_concepts, unique_concepts
 from tnx_omop.omop_vocab.concept_table import table_path
-from tnx_omop.run_report import REPORT_FILE
+from tnx_omop.pipeline.run_report import REPORT_FILE
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
 from tnx_omop.quality.validation import validate

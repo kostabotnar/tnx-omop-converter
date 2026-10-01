@@ -26,22 +26,22 @@ from typing import Any, Callable
 import polars as pl
 
 from .cleaning import clean_batch
-from .schema.domains import EVENT_CONCEPT_COLUMNS, EVENT_DATE_COLUMNS
+from ..schema.domains import EVENT_CONCEPT_COLUMNS, EVENT_DATE_COLUMNS
 from .ingest import IngestResult, scan_batch
-from .schema.omop import OMOP_SCHEMAS, TableSchema
-from .omop_vocab.vocabulary import VocabularyLookup
-from .transformers import (
+from ..schema.omop import OMOP_SCHEMAS, TableSchema
+from ..omop_vocab.vocabulary import VocabularyLookup
+from ..transformers import (
     transform_clinical,
     transform_death,
     transform_person,
     transform_visit,
 )
-from .transformers.clinical import COVERAGE_PART_SCHEMA, record_coverage
-from .transformers.sources import SOURCE_ADAPTERS
-from .util import columns as col
-from .util import tables as tbl
-from .util.id_generator import add_visit_ids, with_record_ids
-from .util.parquet_io import sink_parquet, write_parquet
+from ..transformers.clinical import COVERAGE_PART_SCHEMA, record_coverage
+from ..transformers.sources import SOURCE_ADAPTERS
+from ..util import columns as col
+from ..util import tables as tbl
+from ..util.id_generator import add_visit_ids, with_record_ids
+from ..util.parquet_io import sink_parquet, write_parquet
 
 logger = logging.getLogger(__name__)
 

@@ -1,10 +1,10 @@
-"""Tests for tnx_omop/cdm_source.py."""
+"""Tests for tnx_omop/pipeline/cdm_source.py."""
 
 from datetime import date
 
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
-from tnx_omop.cdm_source import build_cdm_source
+from tnx_omop.pipeline.cdm_source import build_cdm_source
 from tnx_omop.transformers.cdm_source import CDM_VERSION_CONCEPT_ID
 
 VOCAB_VERSION = "v5.0 30-AUG-26"

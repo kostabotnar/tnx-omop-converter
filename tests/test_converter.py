@@ -16,18 +16,18 @@ from tnx_omop import __main__ as main
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
 from tnx_omop.omop_vocab.concept_table import table_path
-from tnx_omop import ingest
-from tnx_omop.batch_transform import IdCounters, order_table, transform_batch
-from tnx_omop.converter import build_vocab_lookup, convert
+from tnx_omop.pipeline import ingest
+from tnx_omop.pipeline.batch_transform import IdCounters, order_table, transform_batch
+from tnx_omop.pipeline.converter import build_vocab_lookup, convert
 from tnx_omop.schema.domains import (
     EVENT_CONCEPT_COLUMNS,
     NO_SOURCE_CONCEPT,
     NO_STANDARD_MAPPING,
     UNSUPPORTED_DOMAIN,
 )
-from tnx_omop.merge import COVERAGE_FILE
+from tnx_omop.pipeline.merge import COVERAGE_FILE
 from tnx_omop.schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
-from tnx_omop.run_report import REPORT_FILE, REPORT_TEMP_FILE
+from tnx_omop.pipeline.run_report import REPORT_FILE, REPORT_TEMP_FILE
 from tnx_omop.transformers.clinical import COVERAGE_SCHEMA
 from tnx_omop.transformers.sources import SOURCE_ADAPTERS
 from tnx_omop.quality.validation import validate
@@ -757,7 +757,7 @@ class TestWorkDir:
         def fail(*args, **kwargs):
             raise RuntimeError("boom")
 
-        monkeypatch.setattr("tnx_omop.converter.run_batches", fail)
+        monkeypatch.setattr("tnx_omop.pipeline.converter.run_batches", fail)
         out = tmp_path / "omop"
 
         with pytest.raises(RuntimeError, match="boom"):
@@ -782,7 +782,7 @@ class TestBatchAtomicity:
         def crash(*args, **kwargs):
             raise RuntimeError("crash")
 
-        monkeypatch.setattr("tnx_omop.batch_transform._commit_batch", crash)
+        monkeypatch.setattr("tnx_omop.pipeline.batch_transform._commit_batch", crash)
         with pytest.raises(RuntimeError, match="crash"):
             transform_batch(result, 0, lookup, IdCounters())
 

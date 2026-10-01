@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .quality import dqd
-from .ingest import DEFAULT_BATCH_ROWS
+from .pipeline.ingest import DEFAULT_BATCH_ROWS
 
 CONVERT = "convert"
 VALIDATE = "validate"

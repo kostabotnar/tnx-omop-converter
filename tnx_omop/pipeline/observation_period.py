@@ -8,10 +8,10 @@ from pathlib import Path
 
 import polars as pl
 
-from .util import columns as col
-from .util import tables as tbl
-from .util.parquet_io import write_parquet
-from .transformers.observation_period import build_observation_period
+from ..util import columns as col
+from ..util import tables as tbl
+from ..util.parquet_io import write_parquet
+from ..transformers.observation_period import build_observation_period
 
 # Date columns that bound a person's observation time, per OMOP table
 _EVENT_DATES = [

@@ -23,7 +23,7 @@ from ..schema.domains import (
     NO_STANDARD_MAPPING,
     UNSUPPORTED_DOMAIN,
 )
-from ..merge import COVERAGE_FILE
+from ..pipeline.merge import COVERAGE_FILE
 from ..schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS, TableSchema
 from ..omop_vocab.concept_table import table_path
 from ..transformers.clinical import COVERAGE_SCHEMA

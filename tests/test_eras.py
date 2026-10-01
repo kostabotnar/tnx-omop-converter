@@ -1,4 +1,4 @@
-"""Tests for tnx_omop/eras.py (file access, ingredient map, person ranges).
+"""Tests for tnx_omop/pipeline/eras.py (file access, ingredient map, person ranges).
 
 The era logic itself is tested in tests/test_transformers/test_eras.py.
 """
@@ -11,7 +11,7 @@ import pytest
 from tests import athena_fixture as fx
 from tests.era_frames import CONDITION, OTHER_CONDITION, conditions, day, exposures
 from tests.schema_asserts import assert_conforms
-from tnx_omop import eras
+from tnx_omop.pipeline import eras
 from tnx_omop.schema.omop import CONDITION_ERA_SCHEMA, DRUG_ERA_SCHEMA
 from tnx_omop.omop_vocab.athena import CONCEPT_COLUMNS
 from tnx_omop.omop_vocab.concept_table import table_path

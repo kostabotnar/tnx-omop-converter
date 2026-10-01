@@ -16,7 +16,7 @@ import pytest
 from tnx_omop import __main__ as entry
 from tnx_omop import cli
 from tnx_omop.quality import dqd
-from tnx_omop.converter import convert
+from tnx_omop.pipeline.converter import convert
 from tnx_omop.util import tables as tbl
 from tests.test_converter import _write_zip
 

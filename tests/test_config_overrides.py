@@ -8,8 +8,8 @@ import polars as pl
 import pytest
 
 from tnx_omop import __main__ as entry
-from tnx_omop import manifest as mf
-from tnx_omop.converter import convert
+from tnx_omop.pipeline import manifest as mf
+from tnx_omop.pipeline.converter import convert
 from tnx_omop.schema.domains import NO_SOURCE_CONCEPT
 from tnx_omop.omop_vocab.concept_table import table_path
 from tnx_omop.util import columns as col

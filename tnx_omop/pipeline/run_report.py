@@ -17,10 +17,10 @@ from typing import Any
 
 import polars as pl
 
-from .schema.domains import DOMAIN_TABLES
-from .util import columns as col
-from .util.concept_mappings import describe_config
-from .util.run_stats import RunStats
+from ..schema.domains import DOMAIN_TABLES
+from ..util import columns as col
+from ..util.concept_mappings import describe_config
+from ..util.run_stats import RunStats
 
 REPORT_FILE = "run_report.json"
 REPORT_TEMP_FILE = "run_report.json.tmp"
