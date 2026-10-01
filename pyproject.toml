@@ -1,0 +1,48 @@
+[project]
+name = "tnx-omop-converter"
+version = "0.1.0"
+description = "Convert TriNetX EHR data exports to OMOP CDM 5.4 Parquet tables."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Kostiantyn Botnar", email = "kosta.botnar@gmail.com" }]
+maintainers = [{ name = "Kostiantyn Botnar", email = "kosta.botnar@gmail.com" }]
+keywords = ["omop", "ohdsi", "trinetx", "cdm", "ehr", "etl", "polars"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "polars>=1.44.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/kostabotnar/tnx-omop-converter"
+Source = "https://github.com/kostabotnar/tnx-omop-converter"
+Issues = "https://github.com/kostabotnar/tnx-omop-converter/issues"
+Changelog = "https://github.com/kostabotnar/tnx-omop-converter/blob/main/CHANGELOG.md"
+
+[project.scripts]
+tnx-omop = "tnx_omop.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "tnx_omop"
+module-root = ""
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]

@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a problem with tnx-omop-converter
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Do not post patient data
+        TriNetX exports contain patient-level data under data use agreements. Never attach or paste TriNetX files, converted OMOP output rows, or anything derived from patient records. Use synthetic examples, aggregate counts, logs with data rows removed, or `coverage.csv` style summaries.
+  - type: checkboxes
+    id: no-patient-data
+    attributes:
+      label: Patient data check
+      options:
+        - label: This issue contains no patient data, TriNetX data, or OMOP output rows derived from patient records.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "`tnx-omop --version` is not available. Give the git commit (`git rev-parse HEAD`) or the installed package version."
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.13.x"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Windows 11, Ubuntu 24.04, macOS 15"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command line used
+      description: Remove or replace private paths if needed.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output with data rows removed
+      description: Check the log for patient identifiers, dates, codes tied to a patient, or other row values before pasting.
+      render: text
+  - type: input
+    id: athena-version
+    attributes:
+      label: Athena vocabulary version
+      description: Found in `vocabulary_version` of CDM_SOURCE or in `run_report.json`.

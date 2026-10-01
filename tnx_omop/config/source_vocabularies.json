@@ -1,0 +1,25 @@
+{
+  "diagnosis": {
+    "ICD-10-CM": "ICD10CM",
+    "ICD-9-CM": "ICD9CM"
+  },
+  "procedure": {
+    "ICD-9-CM": "ICD9Proc",
+    "ICD-10-PCS": "ICD10PCS",
+    "CPT": "CPT4",
+    "HCPCS": "HCPCS",
+    "CVX": "CVX",
+    "VA": "VA Class"
+  },
+  "medication_ingredient": {
+    "RxNorm": "RxNorm"
+  },
+  "lab_result": {
+    "LOINC": "LOINC",
+    "TNX": null
+  },
+  "vitals_signs": {
+    "LOINC": "LOINC",
+    "TNX": null
+  }
+}

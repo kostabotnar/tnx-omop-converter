@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+title: "tnx-omop-converter"
+type: software
+authors:
+  - family-names: Botnar
+    given-names: Kostiantyn
+    email: kosta.botnar@gmail.com
+repository-code: "https://github.com/kostabotnar/tnx-omop-converter"
+license: Apache-2.0
+version: 0.1.0
+abstract: "Command line tool that converts TriNetX electronic health record exports (ZIP files of CSV) to OMOP Common Data Model 5.4 tables in Parquet format, using an Athena vocabulary download."
+keywords:
+  - OMOP
+  - OHDSI
+  - TriNetX
+  - CDM
+  - ETL

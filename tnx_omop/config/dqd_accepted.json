@@ -1,0 +1,48 @@
+{
+  "accepted": [
+    {
+      "check_id": "field_standardconceptrecordcompleteness_condition_occurrence_condition_status_concept_id",
+      "reason": "TriNetX diagnoses have no condition status, so condition_status_concept_id is 0"
+    },
+    {
+      "check_id": "field_standardconceptrecordcompleteness_death_cause_concept_id",
+      "reason": "The TriNetX patient table has no cause of death, so cause_concept_id is 0"
+    },
+    {
+      "check_id": "field_sourceconceptrecordcompleteness_death_cause_source_concept_id",
+      "reason": "The TriNetX patient table has no cause of death, so cause_source_concept_id is 0"
+    },
+    {
+      "check_id": "field_standardconceptrecordcompleteness_device_exposure_unit_concept_id",
+      "reason": "Devices come from TriNetX procedure codes, which have no quantity or unit"
+    },
+    {
+      "check_id": "field_standardconceptrecordcompleteness_observation_unit_concept_id",
+      "reason": "Observations come from diagnosis, procedure and lab codes without a unit"
+    },
+    {
+      "check_id": "field_standardconceptrecordcompleteness_visit_occurrence_admitted_from_concept_id",
+      "reason": "TriNetX encounters have no admission source"
+    },
+    {
+      "check_id": "field_standardconceptrecordcompleteness_visit_occurrence_discharged_to_concept_id",
+      "reason": "TriNetX encounters have no discharge destination"
+    },
+    {
+      "check_id": "field_standardconceptrecordcompleteness_visit_occurrence_visit_concept_id",
+      "reason": "TriNetX encounter type UNKNOWN maps to visit_concept_id 0, the OMOP convention for an unknown value"
+    },
+    {
+      "check_id": "field_sourcevaluecompleteness_visit_occurrence_visit_source_value",
+      "reason": "Same rows as the visit_concept_id check: encounters of TriNetX type UNKNOWN have visit_concept_id 0"
+    },
+    {
+      "check_id": "concept_plausiblegender_*",
+      "reason": "Sex-specific conditions recorded for patients of the other sex are in the TriNetX source data; the converter copies gender and conditions unchanged"
+    },
+    {
+      "check_id": "field_fkclass_drug_strength_ingredient_concept_id",
+      "reason": "DRUG_STRENGTH is copied unchanged from the Athena download, which has ingredient_concept_id values that are not of class Ingredient"
+    }
+  ]
+}

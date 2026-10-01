@@ -1,0 +1,64 @@
+{
+  "gender": {
+    "M": 8507,
+    "F": 8532
+  },
+  "race": {
+    "American Indian or Alaska Native": 8657,
+    "Asian": 8515,
+    "Black or African American": 8516,
+    "Native Hawaiian or Other Pacific Islander": 8557,
+    "White": 8527
+  },
+  "ethnicity": {
+    "Hispanic or Latino": 38003563,
+    "Not Hispanic or Latino": 38003564
+  },
+  "visit_type": {
+    "IMP": 9201,
+    "ACUTE": 9201,
+    "NONAC": 9201,
+    "EMER": 9203,
+    "AMB": 9202,
+    "SS": 9202,
+    "OBSENC": 9202,
+    "PRENC": 9202,
+    "HH": 581476,
+    "VR": 722455,
+    "FLD": 581478
+  },
+  "condition_status": {
+    "P": 32902,
+    "S": 32908
+  },
+  "route": {
+    "Oral Product": 4132161,
+    "Injectable Product": 706184,
+    "Inhalant Product": 40486069,
+    "Topical Product": 4263689,
+    "Rectal Product": 4290759,
+    "Ophthalmic Product": 4184451,
+    "Nasal Product": 4262914,
+    "Otic Product": 4023156,
+    "Drug Implant Product": 706185,
+    "Vaginal Product": 4057765,
+    "Urethral Product": 4233974,
+    "Intraperitoneal Product": 4243022
+  },
+  "unit_ucum": {
+    "U/L": "[U]/L",
+    "mL/min/{1.73_m2}": "mL/min/(173.10*-2.m2)",
+    "[IU]/L": "[iU]/L",
+    "[IU]/mL": "[iU]/mL",
+    "U/mL": "[U]/mL",
+    "{Ratio}": "{ratio}",
+    "[pH]": "pH",
+    "g/l": "g/L",
+    "ug/(24.H)": "ug/(24.h)"
+  },
+  "lab_value": {
+    "Negative": 9189,
+    "Positive": 9191
+  },
+  "default_concept_id": 0
+}

@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not post patient data. Never attach or paste TriNetX files, converted OMOP output rows, or anything derived from patient records. Use synthetic examples or aggregate counts.
+  - type: checkboxes
+    id: no-patient-data
+    attributes:
+      label: Patient data check
+      options:
+        - label: This request contains no patient data, TriNetX data, or OMOP output rows derived from patient records.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to do that the tool does not support?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
