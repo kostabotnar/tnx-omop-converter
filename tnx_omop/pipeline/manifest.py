@@ -16,9 +16,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from .omop_vocab.athena import athena_path
-from .util.concept_mappings import describe_config
-from .util import tables as tbl
+from ..omop_vocab.athena import athena_path
+from ..util.concept_mappings import describe_config
+from ..util import tables as tbl
 
 # Increase when a code change makes the files of an older working directory invalid
 PIPELINE_VERSION = 2

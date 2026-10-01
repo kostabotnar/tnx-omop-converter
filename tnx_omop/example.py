@@ -15,7 +15,7 @@ import zipfile
 from pathlib import Path
 
 from .omop_vocab.athena import CONCEPT_COLUMNS
-from .tnx_schema import (
+from .schema.trinetx import (
     DATA_DICTIONARY_FILE,
     DATA_DICTIONARY_SHEET,
     FIELD_HEADER,

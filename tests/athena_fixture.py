@@ -14,7 +14,7 @@ from typing import Dict, List, Optional, Tuple
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
 from tnx_omop.omop_vocab.athena import CONCEPT_COLUMNS
-from tnx_omop.cdm_source import CDM_VERSION_CONCEPT_ID
+from tnx_omop.transformers.cdm_source import CDM_VERSION_CONCEPT_ID
 from tnx_omop.util.concept_mappings import (
     CONDITION_STATUS_CONCEPT_MAP,
     ETHNICITY_CONCEPT_MAP,

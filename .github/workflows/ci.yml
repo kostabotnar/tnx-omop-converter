@@ -48,8 +48,11 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: r-library-${{ runner.os }}-${{ hashFiles('tnx_omop/r/install_packages.R') }}
-      - run: Rscript tnx_omop/r/install_packages.R
+          key: r-library-${{ runner.os }}-${{ hashFiles('tnx_omop/quality/r/install_packages.R') }}
+      - run: Rscript tnx_omop/quality/r/install_packages.R
+        env:
+          # remotes::install_github calls the GitHub API, which refuses anonymous requests here
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       - run: uv sync --locked
       - name: Run the DQD test and fail if it was skipped
         run: uv run pytest -q -rs tests/test_dqd.py | tee dqd_test.log

@@ -8,8 +8,8 @@ import pytest
 from tnx_omop.util import columns as col
 from tests.id_helpers import with_ids
 from tnx_omop.util import tables as tbl
-from tnx_omop.domains import UNSUPPORTED_DOMAIN
-from tnx_omop.omop_schema import OMOP_SCHEMAS
+from tnx_omop.schema.domains import UNSUPPORTED_DOMAIN
+from tnx_omop.schema.omop import OMOP_SCHEMAS
 from tnx_omop.transformers import build_condition, build_procedure
 from tnx_omop.transformers.clinical import clinical_events, transform_clinical
 from tnx_omop.omop_vocab.vocabulary import CODES_SCHEMA, UNITS_SCHEMA, VocabularyLookup

@@ -32,11 +32,11 @@ import polars as pl
 from polars.io.partition import FileProviderArgs
 
 from .cleaning import DATE_COLUMN_MAP, TABLE_FILES
-from .tnx_schema import DataDictionary, apply_data_types, drop_derived_columns
-from .util import columns as col
-from .util import tables as tbl
-from .util.date_utils import parse_month_year_death_column
-from .util.parquet_io import sink_parquet
+from ..schema.trinetx import DataDictionary, apply_data_types, drop_derived_columns
+from ..util import columns as col
+from ..util import tables as tbl
+from ..util.date_utils import parse_month_year_death_column
+from ..util.parquet_io import sink_parquet
 
 DEFAULT_BATCH_ROWS = 5_000_000
 
@@ -120,7 +120,7 @@ def ingest(
         input_zips: TriNetX ZIP exports; the file stem is the source ID.
         work_dir: Working directory, created when missing.
         dictionary: Column types of the TriNetX tables (see
-            tnx_schema.load_data_dictionary).
+            schema.trinetx.load_data_dictionary).
         batch_rows: Upper bound of source rows per batch (a single person with
             more rows gets a batch alone).
         completed: Stages (STAGES) that finished in an earlier run on the same
@@ -208,7 +208,7 @@ def write_raw(
     """Stage 1: convert every table CSV of every ZIP to a typed Parquet file.
 
     Columns are read as strings, then typed from the data dictionary (see
-    tnx_schema.apply_data_types). *derived_by_TriNetX columns are dropped and
+    schema.trinetx.apply_data_types). *derived_by_TriNetX columns are dropped and
     _source_id is added. One CSV at a time is extracted and deleted after
     conversion. The metadata CSVs are copied to <work>/meta/<source>/.
 

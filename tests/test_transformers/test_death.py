@@ -7,7 +7,7 @@ import polars as pl
 from tnx_omop.util import columns as col
 from tests.id_helpers import with_ids
 from tnx_omop.transformers.base import ConceptIds
-from tnx_omop.omop_schema import DEATH_SCHEMA
+from tnx_omop.schema.omop import DEATH_SCHEMA
 from tnx_omop.transformers.death import transform_death
 
 

@@ -2,7 +2,7 @@
 
 import polars as pl
 
-from tnx_omop.omop_schema import TableSchema
+from tnx_omop.schema.omop import TableSchema
 
 
 def assert_conforms(

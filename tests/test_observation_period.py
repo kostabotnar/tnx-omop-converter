@@ -1,4 +1,4 @@
-"""Tests for tnx_omop/observation_period.py."""
+"""Tests for tnx_omop/pipeline/observation_period.py."""
 
 from datetime import date
 from pathlib import Path
@@ -7,7 +7,7 @@ import polars as pl
 
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
-from tnx_omop.observation_period import create_observation_period
+from tnx_omop.pipeline.observation_period import create_observation_period
 from tnx_omop.transformers.base import ConceptIds
 
 

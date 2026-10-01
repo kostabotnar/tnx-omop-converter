@@ -10,7 +10,7 @@ Usage:
     # Print the coverage report (rows per table, excluded rows per reason)
     uv run pytest tests/test_omop_validation.py -k report -s --output-dir=/path/to/output
 
-The checks live in tnx_omop/validation.py; `tnx-omop validate <dir>` runs the same
+The checks live in tnx_omop/quality/validation.py; `tnx-omop validate <dir>` runs the same
 ones without pytest. Every test skips when --output-dir is not given.
 """
 
@@ -19,7 +19,7 @@ from pathlib import Path
 import pytest
 
 from tnx_omop.util import tables
-from tnx_omop.validation import (
+from tnx_omop.quality.validation import (
     CHECKS,
     OPTIONAL_CHECKS,
     Check,

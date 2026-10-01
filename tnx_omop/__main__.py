@@ -7,15 +7,16 @@ import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from . import cli, dqd
-from . import eras as era_builder
-from .converter import convert
+from . import cli
+from .quality import dqd
+from .pipeline import eras as era_builder
+from .pipeline.converter import convert
 from .example import write_example
 from .omop_vocab.athena import missing_files
 from .util import concept_mappings
 from .omop_vocab.vocab_coverage import build_report
-from .tnx_schema import DataDictionaryError, load_data_dictionary
-from .validation import ValidationReport, coverage_report, validate
+from .schema.trinetx import DataDictionaryError, load_data_dictionary
+from .quality.validation import ValidationReport, coverage_report, validate
 
 logger = logging.getLogger(__name__)
 

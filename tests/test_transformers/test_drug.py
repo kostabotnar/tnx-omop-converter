@@ -9,7 +9,7 @@ from tnx_omop.util import columns as col
 from tests.id_helpers import with_ids
 from tnx_omop.util import tables as tbl
 from tnx_omop.util.concept_mappings import DEFAULT_CONCEPT_ID, ROUTE_CONCEPT_MAP
-from tnx_omop.omop_schema import DRUG_EXPOSURE_SCHEMA
+from tnx_omop.schema.omop import DRUG_EXPOSURE_SCHEMA
 from tnx_omop.transformers.clinical import transform_clinical
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms

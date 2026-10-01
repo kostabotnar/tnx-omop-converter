@@ -3,7 +3,7 @@
 import polars as pl
 
 from ..util import columns as col
-from .. import omop_schema
+from ..schema import omop as omop_schema
 from .base import ConceptIds, build_from_events
 
 

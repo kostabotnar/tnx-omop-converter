@@ -9,9 +9,9 @@ from pathlib import Path
 import polars as pl
 import pytest
 
-from tnx_omop import ingest
-from tnx_omop.cleaning import TABLE_FILES
-from tnx_omop.ingest import (
+from tnx_omop.pipeline import ingest
+from tnx_omop.pipeline.cleaning import TABLE_FILES
+from tnx_omop.pipeline.ingest import (
     IngestResult,
     _cut_batches,
     batch_path,

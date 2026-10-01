@@ -14,7 +14,7 @@ import polars as pl
 
 from ..util import columns as col
 from ..util import tables as tbl
-from ..domains import DOMAIN_TABLES, NO_SOURCE_CONCEPT
+from ..schema.domains import DOMAIN_TABLES, NO_SOURCE_CONCEPT
 from ..omop_vocab.vocabulary import VocabularyLookup
 from .condition import build_condition
 from .device import build_device

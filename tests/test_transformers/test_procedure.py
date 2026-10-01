@@ -6,7 +6,7 @@ import polars as pl
 
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
-from tnx_omop.omop_schema import PROCEDURE_OCCURRENCE_SCHEMA
+from tnx_omop.schema.omop import PROCEDURE_OCCURRENCE_SCHEMA
 from tnx_omop.transformers.clinical import transform_clinical
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms

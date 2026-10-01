@@ -12,7 +12,7 @@ from tnx_omop.util.concept_mappings import (
     UNIT_UCUM_MAP,
     map_concept_id,
 )
-from tnx_omop.domains import DOMAIN_TABLES, EVENT_CONCEPT_COLUMNS
+from tnx_omop.schema.domains import DOMAIN_TABLES, EVENT_CONCEPT_COLUMNS
 
 CLINICAL_TABLES = [
     tbl.tnx_diagnosis,

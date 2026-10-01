@@ -11,7 +11,7 @@ from tnx_omop.util.concept_mappings import (
     CONDITION_STATUS_CONCEPT_MAP,
     DEFAULT_CONCEPT_ID,
 )
-from tnx_omop.omop_schema import CONDITION_OCCURRENCE_SCHEMA
+from tnx_omop.schema.omop import CONDITION_OCCURRENCE_SCHEMA
 from tnx_omop.transformers.clinical import transform_clinical
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms

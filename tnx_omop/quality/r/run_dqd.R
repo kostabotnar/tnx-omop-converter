@@ -1,6 +1,6 @@
 # Loads a tnx-omop output folder into DuckDB and runs the OHDSI Data Quality Dashboard.
 #
-# Called by `tnx-omop dqd` (tnx_omop/dqd.py):
+# Called by `tnx-omop dqd` (tnx_omop/quality/dqd.py):
 #   Rscript run_dqd.R <database> <results_json> <source_name> <keep_database> <table>=<parquet> ...
 # Exit status 3 when an R package is missing (install_packages.R installs them),
 # 1 on any other error.

@@ -53,6 +53,22 @@ tnx-omop validate <output_dir>
 
 The optional `tnx-omop dqd <output_dir>` runs the OHDSI Data Quality Dashboard, see "Data Quality Dashboard" below. The example vocabulary is a small excerpt, so DQD results on the example are not meaningful for data quality.
 
+### Python API
+
+The two main steps can also be called from Python:
+
+```python
+from pathlib import Path
+
+from tnx_omop import convert, validate
+
+row_counts = convert([Path("export.zip")], Path("omop"), Path("athena"))
+report = validate(Path("omop"))
+print(report.ok)
+```
+
+`convert(input_zips, output_dir, vocab_dir, ...)` takes the same options as the `convert` subcommand as keyword arguments (`work_dir`, `batch_rows`, `keep_work_dir`, `config_path`, `export_vocabulary`, `eras`) and returns the row count per output table. `validate(output_dir)` returns a report whose `ok` is true when no check failed.
+
 ## Usage
 
 ```bash
@@ -155,7 +171,7 @@ tnx-omop dqd <output_dir>                     # load into DuckDB and run the DQD
 tnx-omop dqd <output_dir> --no-run            # summarize the results of the last run again
 ```
 
-`dqd` runs the OHDSI Data Quality Dashboard (DQD) on an output folder. It needs R (`Rscript` on PATH, or `--rscript <path>`), a Java JDK for rJava, and the packages duckdb, DatabaseConnector, CommonDataModel and DataQualityDashboard, which `tnx-omop dqd --install-r-packages` installs (it runs the bundled `install_packages.R` with Rscript and takes `--rscript` like the normal run). The script `tnx_omop/r/run_dqd.R` creates every OMOP CDM 5.4 table in a DuckDB file from the official DDL, loads the output Parquet files into them by column name, and runs `DataQualityDashboard::executeDqChecks()`. A column that is not in the CDM, a value of the wrong type or a null in a required column stops the load with an error. DuckDB downloads its ICU extension (needed for the date checks) on each run, so the run needs internet access. The default `convert` output has everything DQD needs. For an output made with `--no-export-vocabulary` or `--no-eras` the command warns: the other vocabulary tables stay empty and the era checks fail.
+`dqd` runs the OHDSI Data Quality Dashboard (DQD) on an output folder. It needs R (`Rscript` on PATH, or `--rscript <path>`), a Java JDK for rJava, and the packages duckdb, DatabaseConnector, CommonDataModel and DataQualityDashboard, which `tnx-omop dqd --install-r-packages` installs (it runs the bundled `install_packages.R` with Rscript and takes `--rscript` like the normal run). The script `tnx_omop/quality/r/run_dqd.R` creates every OMOP CDM 5.4 table in a DuckDB file from the official DDL, loads the output Parquet files into them by column name, and runs `DataQualityDashboard::executeDqChecks()`. A column that is not in the CDM, a value of the wrong type or a null in a required column stops the load with an error. DuckDB downloads its ICU extension (needed for the date checks) on each run, so the run needs internet access. The default `convert` output has everything DQD needs. For an output made with `--no-export-vocabulary` or `--no-eras` the command warns: the other vocabulary tables stay empty and the era checks fail.
 
 The results go to `<output_dir>/dqd/dqd_results.json` (`--results-dir` to change); view them with `DataQualityDashboard::viewDqDashboard("<path>")` in R. The DuckDB file is removed at the end unless `--keep-database` is given. stdout gets one line per failed check and per check whose SQL failed, then the counts. The exit code is 1 when a failure or error is not accepted.
 

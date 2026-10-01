@@ -2,7 +2,7 @@
 
 import polars as pl
 
-from ..omop_schema import PERSON_SCHEMA
+from ..schema.omop import PERSON_SCHEMA
 from ..util import columns as col
 from ..util.concept_mappings import (
     GENDER_CONCEPT_MAP,

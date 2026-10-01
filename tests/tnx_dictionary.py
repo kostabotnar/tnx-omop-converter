@@ -9,7 +9,7 @@ from __future__ import annotations
 import io
 import zipfile
 
-from tnx_omop.tnx_schema import (
+from tnx_omop.schema.trinetx import (
     DATA_DICTIONARY_FILE,
     DATA_DICTIONARY_SHEET,
     FIELD_HEADER,

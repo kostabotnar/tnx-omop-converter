@@ -12,7 +12,11 @@ from tnx_omop.util.concept_mappings import (
     CONDITION_STATUS_CONCEPT_MAP,
     ROUTE_CONCEPT_MAP,
 )
-from tnx_omop.domains import NO_SOURCE_CONCEPT, NO_STANDARD_MAPPING, UNSUPPORTED_DOMAIN
+from tnx_omop.schema.domains import (
+    NO_SOURCE_CONCEPT,
+    NO_STANDARD_MAPPING,
+    UNSUPPORTED_DOMAIN,
+)
 from tnx_omop.transformers.clinical import apply_lookup, clinical_events
 from tnx_omop.transformers.sources import EVENT_SCHEMA
 from tnx_omop.omop_vocab.vocabulary import CODES_SCHEMA

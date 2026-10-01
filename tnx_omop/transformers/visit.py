@@ -8,7 +8,7 @@ from ..util.concept_mappings import (
     DEFAULT_CONCEPT_ID,
     map_concept_id,
 )
-from ..omop_schema import VISIT_OCCURRENCE_SCHEMA
+from ..schema.omop import VISIT_OCCURRENCE_SCHEMA
 from .base import ConceptIds, build_from_events, create_empty_dataframe
 
 

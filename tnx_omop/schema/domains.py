@@ -6,8 +6,8 @@ Targets in any domain not listed in DOMAIN_TABLES are excluded from the output.
 
 from typing import Dict
 
-from .util import columns as col
-from .util import tables as tbl
+from ..util import columns as col
+from ..util import tables as tbl
 
 # Athena domain_id values
 CONDITION = "Condition"

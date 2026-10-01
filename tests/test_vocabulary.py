@@ -10,7 +10,11 @@ import pytest
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
 from tnx_omop.util.concept_mappings import UNIT_UCUM_MAP
-from tnx_omop.domains import NO_SOURCE_CONCEPT, NO_STANDARD_MAPPING, UNSUPPORTED_DOMAIN
+from tnx_omop.schema.domains import (
+    NO_SOURCE_CONCEPT,
+    NO_STANDARD_MAPPING,
+    UNSUPPORTED_DOMAIN,
+)
 from tnx_omop.omop_vocab.vocabulary import (
     CODES_SCHEMA,
     UNITS_SCHEMA,

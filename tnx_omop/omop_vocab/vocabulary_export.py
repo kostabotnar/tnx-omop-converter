@@ -20,7 +20,7 @@ from typing import Optional
 
 import polars as pl
 
-from ..omop_schema import (
+from ..schema.omop import (
     CONCEPT_ANCESTOR_SCHEMA,
     CONCEPT_CLASS_SCHEMA,
     CONCEPT_RELATIONSHIP_SCHEMA,

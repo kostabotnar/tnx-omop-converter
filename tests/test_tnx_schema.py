@@ -1,4 +1,4 @@
-"""Tests for the data dictionary of the TriNetX exports (tnx_omop/tnx_schema.py)."""
+"""Tests for the data dictionary of the TriNetX exports (tnx_omop/schema/trinetx.py)."""
 
 from __future__ import annotations
 
@@ -11,9 +11,9 @@ import polars as pl
 import pytest
 
 from tnx_omop import __main__ as entry
-from tnx_omop import tnx_schema
-from tnx_omop.converter import convert
-from tnx_omop.tnx_schema import (
+from tnx_omop.schema import trinetx
+from tnx_omop.pipeline.converter import convert
+from tnx_omop.schema.trinetx import (
     DataDictionary,
     DataDictionaryError,
     apply_data_types,
@@ -120,7 +120,7 @@ class TestReadFromZip:
     def test_unreadable_workbook_raises(self, tmp_path: Path):
         path = tmp_path / "a.zip"
         with zipfile.ZipFile(path, "w") as zf:
-            zf.writestr(tnx_schema.DATA_DICTIONARY_FILE, b"not a workbook")
+            zf.writestr(trinetx.DATA_DICTIONARY_FILE, b"not a workbook")
         with pytest.raises(DataDictionaryError, match="a.zip"):
             read_data_dictionary(path)
 
@@ -129,7 +129,7 @@ class TestReadFromZip:
         write_sheet(buffer, "Other", sheet_rows())
         path = tmp_path / "a.zip"
         with zipfile.ZipFile(path, "w") as zf:
-            zf.writestr(tnx_schema.DATA_DICTIONARY_FILE, buffer.getvalue())
+            zf.writestr(trinetx.DATA_DICTIONARY_FILE, buffer.getvalue())
         with pytest.raises(DataDictionaryError, match="Data Dictionary"):
             read_data_dictionary(path)
 

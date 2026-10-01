@@ -5,8 +5,8 @@ from typing import Dict, List, Optional
 
 import polars as pl
 
-from .util import columns as col
-from .util import tables
+from ..util import columns as col
+from ..util import tables
 
 
 @dataclass
@@ -327,7 +327,7 @@ CONCEPT_SCHEMA = TableSchema(
     ],
 )
 
-# CONDITION_ERA table schema (optional, see eras.py)
+# CONDITION_ERA table schema (optional, see pipeline/eras.py)
 CONDITION_ERA_SCHEMA = TableSchema(
     name=tables.omop_condition_era,
     columns=[
@@ -340,7 +340,7 @@ CONDITION_ERA_SCHEMA = TableSchema(
     ],
 )
 
-# DRUG_ERA table schema (optional, see eras.py)
+# DRUG_ERA table schema (optional, see pipeline/eras.py)
 DRUG_ERA_SCHEMA = TableSchema(
     name=tables.omop_drug_era,
     columns=[

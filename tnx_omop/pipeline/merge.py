@@ -13,12 +13,12 @@ from pathlib import Path
 import polars as pl
 
 from .batch_transform import COVERAGE_DIR, PARTS_DIR, output_tables
-from .omop_vocab.concept_table import table_path
-from .transformers.clinical import COVERAGE_PART_SCHEMA, COVERAGE_SCHEMA
-from .transformers.sources import SOURCE_ADAPTERS
-from .util import columns as col
-from .util import tables as tbl
-from .util.parquet_io import sink_parquet, write_parquet
+from ..omop_vocab.concept_table import table_path
+from ..transformers.clinical import COVERAGE_PART_SCHEMA, COVERAGE_SCHEMA
+from ..transformers.sources import SOURCE_ADAPTERS
+from ..util import columns as col
+from ..util import tables as tbl
+from ..util.parquet_io import sink_parquet, write_parquet
 
 logger = logging.getLogger(__name__)
 

@@ -4,8 +4,8 @@ import argparse
 from collections.abc import Sequence
 from pathlib import Path
 
-from . import dqd
-from .ingest import DEFAULT_BATCH_ROWS
+from .quality import dqd
+from .pipeline.ingest import DEFAULT_BATCH_ROWS
 
 CONVERT = "convert"
 VALIDATE = "validate"
@@ -95,7 +95,7 @@ def _add_convert_parser(subparsers: argparse._SubParsersAction) -> None:
         help="Keep the working folder after a successful run",
     )
     # Both default to on so that the output is complete for OHDSI tools such as
-    # the Data Quality Dashboard (see dqd.py).
+    # the Data Quality Dashboard (see quality/dqd.py).
     parser.add_argument(
         "--export-vocabulary",
         action=argparse.BooleanOptionalAction,

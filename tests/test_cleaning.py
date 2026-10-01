@@ -1,4 +1,4 @@
-"""Tests for tnx_omop/cleaning.py."""
+"""Tests for tnx_omop/pipeline/cleaning.py."""
 
 import io
 from datetime import date
@@ -7,8 +7,8 @@ import polars as pl
 
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
-from tnx_omop.cleaning import _fix_encounter_dates, clean_batch
-from tnx_omop.tnx_schema import apply_data_types, drop_derived_columns
+from tnx_omop.pipeline.cleaning import _fix_encounter_dates, clean_batch
+from tnx_omop.schema.trinetx import apply_data_types, drop_derived_columns
 from tests.tnx_dictionary import DICTIONARY
 
 PATIENT = "patient_id,sex,year_of_birth,month_year_death\n"
