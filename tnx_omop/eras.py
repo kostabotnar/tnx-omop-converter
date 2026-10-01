@@ -55,7 +55,7 @@ from pathlib import Path
 import polars as pl
 
 from .ingest import DEFAULT_BATCH_ROWS
-from .omop_schema import CONDITION_ERA_SCHEMA, DRUG_ERA_SCHEMA, TableSchema
+from .schema.omop import CONDITION_ERA_SCHEMA, DRUG_ERA_SCHEMA, TableSchema
 from .omop_vocab.athena import athena_path, scan_athena, scan_concepts
 from .omop_vocab.concept_table import table_path
 from .util import columns as col

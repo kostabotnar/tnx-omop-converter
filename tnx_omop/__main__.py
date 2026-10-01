@@ -14,7 +14,7 @@ from .example import write_example
 from .omop_vocab.athena import missing_files
 from .util import concept_mappings
 from .omop_vocab.vocab_coverage import build_report
-from .tnx_schema import DataDictionaryError, load_data_dictionary
+from .schema.trinetx import DataDictionaryError, load_data_dictionary
 from .validation import ValidationReport, coverage_report, validate
 
 logger = logging.getLogger(__name__)

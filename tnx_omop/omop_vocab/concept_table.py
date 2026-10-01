@@ -13,7 +13,7 @@ from ..util import tables as tbl
 from ..util.parquet_io import write_parquet
 from .athena import scan_concepts, typed_concepts, unique_concepts
 from ..util.concept_mappings import SOURCE_VOCABULARY_MAP
-from ..omop_schema import CONCEPT_SCHEMA, ERA_SCHEMAS, OMOP_SCHEMAS
+from ..schema.omop import CONCEPT_SCHEMA, ERA_SCHEMAS, OMOP_SCHEMAS
 
 logger = logging.getLogger(__name__)
 

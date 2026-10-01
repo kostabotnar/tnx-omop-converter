@@ -16,7 +16,7 @@ from tnx_omop.omop_vocab.concept_table import (
     referenced_concept_ids,
     table_path,
 )
-from tnx_omop.omop_schema import CONCEPT_SCHEMA
+from tnx_omop.schema.omop import CONCEPT_SCHEMA
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms
 

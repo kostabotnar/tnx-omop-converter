@@ -20,7 +20,7 @@ from ..util import columns as col
 from ..util import tables as tbl
 from .athena import scan_concepts, scan_maps_to, unique_concepts
 from ..util.concept_mappings import SOURCE_VOCABULARY_MAP, UNIT_UCUM_MAP
-from ..domains import (
+from ..schema.domains import (
     DOMAIN_TABLES,
     NO_SOURCE_CONCEPT,
     NO_STANDARD_MAPPING,

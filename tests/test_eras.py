@@ -10,7 +10,7 @@ import polars as pl
 import pytest
 
 from tnx_omop import eras
-from tnx_omop.omop_schema import CONDITION_ERA_SCHEMA, DRUG_ERA_SCHEMA
+from tnx_omop.schema.omop import CONDITION_ERA_SCHEMA, DRUG_ERA_SCHEMA
 from tnx_omop.omop_vocab.athena import CONCEPT_COLUMNS
 from tnx_omop.omop_vocab.concept_table import table_path
 from tnx_omop.util import columns as col

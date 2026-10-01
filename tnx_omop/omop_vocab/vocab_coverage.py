@@ -22,7 +22,7 @@ from pathlib import Path
 
 import polars as pl
 
-from ..domains import NO_SOURCE_CONCEPT
+from ..schema.domains import NO_SOURCE_CONCEPT
 from ..util import columns as c
 from ..util import tables as t
 from ..util.concept_mappings import SOURCE_VOCABULARY_MAP

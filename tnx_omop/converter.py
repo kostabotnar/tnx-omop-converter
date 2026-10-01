@@ -43,7 +43,7 @@ from .omop_vocab.vocabulary import (
 )
 from .util import concept_mappings
 from .run_report import build_report, excluded_row_counts, write_report
-from .tnx_schema import load_data_dictionary
+from .schema.trinetx import load_data_dictionary
 from .util import tables as tbl
 from .util.parquet_io import write_parquet
 from .util.run_stats import RunStats

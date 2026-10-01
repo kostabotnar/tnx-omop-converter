@@ -1,11 +1,11 @@
-"""Tests for tnx_omop/omop_schema.py and the conform helper."""
+"""Tests for tnx_omop/schema/omop.py and the conform helper."""
 
 import polars as pl
 import pytest
 
 from tnx_omop.util import columns as col
 from tnx_omop.util import tables as tbl
-from tnx_omop.omop_schema import (
+from tnx_omop.schema.omop import (
     DEVICE_EXPOSURE_SCHEMA,
     CONDITION_ERA_SCHEMA,
     DRUG_ERA_SCHEMA,

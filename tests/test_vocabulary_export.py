@@ -11,7 +11,7 @@ import pytest
 
 from tnx_omop import __main__ as entry
 from tnx_omop.converter import STAGE_VOCABULARY_EXPORT, convert
-from tnx_omop.omop_schema import CONCEPT_SCHEMA, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
+from tnx_omop.schema.omop import CONCEPT_SCHEMA, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
 from tnx_omop.omop_vocab import vocabulary_export
 from tnx_omop.omop_vocab.athena import scan_concepts, unique_concepts
 from tnx_omop.omop_vocab.concept_table import table_path

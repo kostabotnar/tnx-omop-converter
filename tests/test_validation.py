@@ -7,9 +7,9 @@ import polars as pl
 import pytest
 
 from tnx_omop import validation
-from tnx_omop.domains import NO_SOURCE_CONCEPT, NO_STANDARD_MAPPING
+from tnx_omop.schema.domains import NO_SOURCE_CONCEPT, NO_STANDARD_MAPPING
 from tnx_omop.merge import COVERAGE_FILE
-from tnx_omop.omop_schema import (
+from tnx_omop.schema.omop import (
     CONCEPT_SCHEMA,
     ERA_SCHEMAS,
     OMOP_SCHEMAS,

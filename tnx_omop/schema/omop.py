@@ -5,8 +5,8 @@ from typing import Dict, List, Optional
 
 import polars as pl
 
-from .util import columns as col
-from .util import tables
+from ..util import columns as col
+from ..util import tables
 
 
 @dataclass

@@ -9,7 +9,7 @@ import pytest
 from tnx_omop import __main__ as entry
 from tnx_omop import cli
 from tnx_omop.omop_vocab.concept_table import table_path
-from tnx_omop.tnx_schema import load_data_dictionary
+from tnx_omop.schema.trinetx import load_data_dictionary
 from tnx_omop.util import tables as tbl
 
 

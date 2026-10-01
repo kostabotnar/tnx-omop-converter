@@ -7,7 +7,7 @@ import polars as pl
 from .util import columns as col
 from .util import tables as tbl
 from .util.parquet_io import write_parquet
-from .omop_schema import OBSERVATION_PERIOD_SCHEMA
+from .schema.omop import OBSERVATION_PERIOD_SCHEMA
 from .transformers.base import ConceptIds, conform, create_empty_dataframe
 
 # Date columns that bound a person's observation time, per OMOP table

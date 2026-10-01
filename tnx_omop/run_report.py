@@ -17,7 +17,7 @@ from typing import Any
 
 import polars as pl
 
-from .domains import DOMAIN_TABLES
+from .schema.domains import DOMAIN_TABLES
 from .util import columns as col
 from .util.concept_mappings import describe_config
 from .util.run_stats import RunStats

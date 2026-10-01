@@ -4,7 +4,7 @@ from typing import Dict
 
 import polars as pl
 
-from ..omop_schema import TableSchema
+from ..schema.omop import TableSchema
 
 
 class ConceptIds:

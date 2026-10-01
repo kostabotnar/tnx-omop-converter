@@ -26,9 +26,9 @@ from typing import Any, Callable
 import polars as pl
 
 from .cleaning import clean_batch
-from .domains import EVENT_CONCEPT_COLUMNS, EVENT_DATE_COLUMNS
+from .schema.domains import EVENT_CONCEPT_COLUMNS, EVENT_DATE_COLUMNS
 from .ingest import IngestResult, scan_batch
-from .omop_schema import OMOP_SCHEMAS, TableSchema
+from .schema.omop import OMOP_SCHEMAS, TableSchema
 from .omop_vocab.vocabulary import VocabularyLookup
 from .transformers import (
     transform_clinical,

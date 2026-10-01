@@ -19,21 +19,21 @@ from tnx_omop.omop_vocab.concept_table import table_path
 from tnx_omop import ingest
 from tnx_omop.batch_transform import IdCounters, order_table, transform_batch
 from tnx_omop.converter import build_vocab_lookup, convert
-from tnx_omop.domains import (
+from tnx_omop.schema.domains import (
     EVENT_CONCEPT_COLUMNS,
     NO_SOURCE_CONCEPT,
     NO_STANDARD_MAPPING,
     UNSUPPORTED_DOMAIN,
 )
 from tnx_omop.merge import COVERAGE_FILE
-from tnx_omop.omop_schema import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
+from tnx_omop.schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
 from tnx_omop.run_report import REPORT_FILE, REPORT_TEMP_FILE
 from tnx_omop.transformers.clinical import COVERAGE_SCHEMA
 from tnx_omop.transformers.sources import SOURCE_ADAPTERS
 from tnx_omop.validation import validate
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms
-from tnx_omop.tnx_schema import DictionaryRow
+from tnx_omop.schema.trinetx import DictionaryRow
 from tests.tnx_dictionary import DICTIONARY, ROWS, add_dictionary
 
 Rows = List[List[Optional[str]]]

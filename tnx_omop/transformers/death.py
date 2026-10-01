@@ -5,7 +5,7 @@ import polars as pl
 from ..util.date_utils import parse_month_year_death_column
 from ..util import columns as col
 from ..util.concept_mappings import DEFAULT_CONCEPT_ID
-from ..omop_schema import DEATH_SCHEMA
+from ..schema.omop import DEATH_SCHEMA
 from .base import ConceptIds, build_from_events, create_empty_dataframe
 
 

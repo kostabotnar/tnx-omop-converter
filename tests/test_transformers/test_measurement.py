@@ -7,7 +7,7 @@ import polars as pl
 from tnx_omop.util import columns as col
 from tests.id_helpers import with_ids
 from tnx_omop.util import tables as tbl
-from tnx_omop.omop_schema import MEASUREMENT_SCHEMA
+from tnx_omop.schema.omop import MEASUREMENT_SCHEMA
 from tnx_omop.transformers.clinical import transform_clinical
 from tests import athena_fixture as fx
 from tests.schema_asserts import assert_conforms

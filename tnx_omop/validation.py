@@ -16,7 +16,7 @@ from pathlib import Path
 
 import polars as pl
 
-from .domains import (
+from .schema.domains import (
     DOMAIN_TABLES,
     EVENT_CONCEPT_COLUMNS,
     NO_SOURCE_CONCEPT,
@@ -24,7 +24,7 @@ from .domains import (
     UNSUPPORTED_DOMAIN,
 )
 from .merge import COVERAGE_FILE
-from .omop_schema import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS, TableSchema
+from .schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS, TableSchema
 from .omop_vocab.concept_table import table_path
 from .transformers.clinical import COVERAGE_SCHEMA
 from .util import columns as col

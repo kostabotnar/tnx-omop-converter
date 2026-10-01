@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 from fnmatch import fnmatchcase
 from pathlib import Path
 
-from .omop_schema import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
+from .schema.omop import ERA_SCHEMAS, OMOP_SCHEMAS, VOCABULARY_SCHEMAS
 from .omop_vocab.concept_table import table_path
 from .util import tables
 

@@ -16,7 +16,7 @@ from pathlib import Path, PurePosixPath
 
 import polars as pl
 
-from .util.xlsx import XlsxError, read_sheet
+from ..util.xlsx import XlsxError, read_sheet
 
 DATA_DICTIONARY_FILE = "datadictionary.xlsx"
 DATA_DICTIONARY_SHEET = "Data Dictionary"
