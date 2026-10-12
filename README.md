@@ -67,7 +67,7 @@ report = validate(Path("omop"))
 print(report.ok)
 ```
 
-`convert(input_zips, output_dir, vocab_dir, ...)` takes the same options as the `convert` subcommand as keyword arguments (`work_dir`, `batch_rows`, `keep_work_dir`, `config_path`, `export_vocabulary`, `eras`) and returns the row count per output table. `validate(output_dir)` returns a report whose `ok` is true when no check failed.
+`convert(input_zips, output_dir, vocab_dir, ...)` takes the same options as the `convert` subcommand as keyword arguments (`work_dir`, `batch_rows`, `keep_work_dir`, `config_path`, `export_vocabulary`, `eras`, `compression`) and returns the row count per output table. `validate(output_dir)` returns a report whose `ok` is true when no check failed.
 
 ## Usage
 
@@ -85,6 +85,7 @@ The column types of the TriNetX CSV files come from the `datadictionary.xlsx` wo
 - `--config <file.json>`: override the bundled concept maps, see "Config file" below. `coverage` accepts it too.
 - `--no-export-vocabulary`: write only the referenced concepts instead of the full Athena vocabulary tables, see "Vocabulary export" below.
 - `--no-eras`: skip CONDITION_ERA and DRUG_ERA, see "Eras" below.
+- `--compression <codec>`: Parquet compression of the output files, one of `zstd` (default), `snappy`, `gzip`, `lz4`, `brotli` or `uncompressed`. Temporary files in the working folder always use `lz4`. The codec is recorded in `run_report.json` and is not part of the resume check, because the output files are rewritten on every run. `convert()` raises `ValueError` for another value.
 
 The vocabulary export and the eras are on by default, so the output is complete for OHDSI tools such as the Data Quality Dashboard, ATLAS and HADES. Turn them off only when the output is not meant for those tools; `--export-vocabulary` and `--eras` are accepted and change nothing.
 
@@ -148,7 +149,7 @@ By default `convert` also writes `condition_era` and `drug_era` (OMOP CDM 5.4), 
 
 ## Run report
 
-A successful `convert` writes `<output_dir>/run_report.json` and logs the total time and the peak memory of the process in its last line. The report holds the tool, Python and Polars versions, start and end time (UTC), the inputs (path and size), the vocabulary folder and version, `batch_rows`, the batch and person counts, whether the run resumed from an earlier working folder, row counts per output table, excluded rows per TriNetX table, and the seconds and peak memory (bytes) of each stage. The stages are `raw`, `persons`, `batches`, `lookup`, `transform`, `merge`, `observation_period`, `cdm_source`, `eras` (not with `--no-eras`), `concept`, `vocabulary_export` (not with `--no-export-vocabulary`) and `coverage`; a stage taken over from an earlier run is missing.
+A successful `convert` writes `<output_dir>/run_report.json` and logs the total time and the peak memory of the process in its last line. The report holds the tool, Python and Polars versions, start and end time (UTC), the inputs (path and size), the vocabulary folder and version, `batch_rows`, the output `compression`, the batch and person counts, whether the run resumed from an earlier working folder, row counts per output table, excluded rows per TriNetX table, and the seconds and peak memory (bytes) of each stage. The stages are `raw`, `persons`, `batches`, `lookup`, `transform`, `merge`, `observation_period`, `cdm_source`, `eras` (not with `--no-eras`), `concept`, `vocabulary_export` (not with `--no-export-vocabulary`) and `coverage`; a stage taken over from an earlier run is missing.
 
 Stage peaks are the highest of samples taken about every 0.2 s, so a short spike can be missed, and they are null where the platform cannot report current memory. `memory_counter` names the counters: on Windows private bytes (`PrivateUsage`) for the stages and `PeakPagefileUsage` for the process; on Linux resident memory (`VmRSS`) and `ru_maxrss`; on macOS only `ru_maxrss` for the process.
 

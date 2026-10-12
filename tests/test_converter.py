@@ -304,6 +304,7 @@ class TestRunReport:
             "vocabulary",
             "config",
             "batch_rows",
+            "compression",
             "batch_count",
             "person_count",
             "resumed",

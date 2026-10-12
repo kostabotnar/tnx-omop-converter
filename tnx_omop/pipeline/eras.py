@@ -26,7 +26,7 @@ from ..omop_vocab.concept_table import table_path
 from ..transformers.eras import condition_eras, drug_eras
 from ..util import columns as col
 from ..util import tables as tbl
-from ..util.parquet_io import sink_parquet, write_parquet
+from ..util.parquet_io import COMPRESSION, sink_parquet, write_parquet
 
 logger = logging.getLogger(__name__)
 
@@ -137,6 +137,7 @@ def _write_table(
     source: pl.LazyFrame | None,
     build: EraBuilder,
     batch_rows: int,
+    compression: str = COMPRESSION,
 ) -> int:
     """Build one era table range by range, then concatenate the parts into path.
 
@@ -170,9 +171,15 @@ def _write_table(
             f"  {schema.name}: persons {first} to {last}, {eras.height:,} eras"
         )
     if parts:
-        sink_parquet(pl.concat([pl.scan_parquet(p) for p in parts]), path)
+        sink_parquet(
+            pl.concat([pl.scan_parquet(p) for p in parts]),
+            path,
+            compression=compression,
+        )
     else:
-        write_parquet(pl.DataFrame(schema=schema.dtype_map), path)
+        write_parquet(
+            pl.DataFrame(schema=schema.dtype_map), path, compression=compression
+        )
     shutil.rmtree(parts_dir, ignore_errors=True)
     return offset
 
@@ -182,6 +189,7 @@ def build_eras(
     vocab_dir: Path,
     work_dir: Path,
     batch_rows: int = DEFAULT_BATCH_ROWS,
+    compression: str = COMPRESSION,
 ) -> dict[str, int]:
     """Write CONDITION_ERA and DRUG_ERA from the merged output tables.
 
@@ -196,6 +204,7 @@ def build_eras(
         work_dir: Working directory; the parts of a table are written to
             <work_dir>/eras and removed after the table is complete.
         batch_rows: Upper bound of source rows per range of persons.
+        compression: Parquet codec of the era files.
 
     Returns:
         Rows per era table, keyed by table name.
@@ -227,6 +236,7 @@ def build_eras(
         occurrences,
         condition_eras,
         batch_rows,
+        compression,
     )
     logger.info(f"  {tbl.omop_condition_era}: {counts[tbl.omop_condition_era]:,} rows")
 
@@ -272,6 +282,7 @@ def build_eras(
         exposures,
         lambda rows: drug_eras(rows, ingredients),
         batch_rows,
+        compression,
     )
     logger.info(f"  {tbl.omop_drug_era}: {counts[tbl.omop_drug_era]:,} rows")
     return counts

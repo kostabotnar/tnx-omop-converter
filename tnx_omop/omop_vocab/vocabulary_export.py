@@ -33,7 +33,7 @@ from ..schema.omop import (
     TableSchema,
 )
 from ..util import tables as tbl
-from ..util.parquet_io import sink_parquet
+from ..util.parquet_io import COMPRESSION, sink_parquet
 from .athena import (
     ATHENA_DATE_FORMAT,
     REQUIRED_FILES,
@@ -84,7 +84,9 @@ def typed_table(lf: pl.LazyFrame, schema: TableSchema) -> pl.LazyFrame:
     )
 
 
-def _write_atomically(lf: pl.LazyFrame, path: Path) -> int:
+def _write_atomically(
+    lf: pl.LazyFrame, path: Path, compression: str = COMPRESSION
+) -> int:
     """Stream lf to path through a temporary file and return the row count.
 
     The file at path is replaced only when the whole table was written.
@@ -92,7 +94,7 @@ def _write_atomically(lf: pl.LazyFrame, path: Path) -> int:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_name(path.name + ".tmp")
     try:
-        sink_parquet(lf, temp)
+        sink_parquet(lf, temp, compression=compression)
         rows = pl.scan_parquet(temp).select(pl.len()).collect().item()
         os.replace(temp, path)
     finally:
@@ -101,7 +103,10 @@ def _write_atomically(lf: pl.LazyFrame, path: Path) -> int:
 
 
 def export_vocabulary(
-    output_dir: Path, vocab_dir: Path, terminology: Optional[pl.DataFrame] = None
+    output_dir: Path,
+    vocab_dir: Path,
+    terminology: Optional[pl.DataFrame] = None,
+    compression: str = COMPRESSION,
 ) -> dict[str, int]:
     """Write the full Athena vocabulary tables into output_dir.
 
@@ -116,6 +121,7 @@ def export_vocabulary(
         vocab_dir: Folder with the Athena CSV files.
         terminology: Output of concept_table.load_terminology(), used to name
             concepts whose Athena name is empty (CPT4).
+        compression: Parquet codec of the output files.
 
     Returns:
         Rows per written table, keyed by lowercase table name.
@@ -138,7 +144,7 @@ def export_vocabulary(
         else:
             lf = typed_table(scan_athena(source), table.schema)
         counts[table.schema.name] = _write_atomically(
-            lf, table_path(output_dir, table.schema.name)
+            lf, table_path(output_dir, table.schema.name), compression
         )
         logger.info(f"  {table.schema.name}: {counts[table.schema.name]:,} rows")
     return counts

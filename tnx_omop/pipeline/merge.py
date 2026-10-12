@@ -18,7 +18,7 @@ from ..transformers.clinical import COVERAGE_PART_SCHEMA, COVERAGE_SCHEMA
 from ..transformers.sources import SOURCE_ADAPTERS
 from ..util import columns as col
 from ..util import tables as tbl
-from ..util.parquet_io import sink_parquet, write_parquet
+from ..util.parquet_io import COMPRESSION, sink_parquet, write_parquet
 
 logger = logging.getLogger(__name__)
 
@@ -48,11 +48,14 @@ def _row_count(path: Path) -> int:
     return pl.scan_parquet(path).select(pl.len()).collect().item()
 
 
-def merge_tables(work_dir: Path, output_dir: Path) -> dict[str, int]:
+def merge_tables(
+    work_dir: Path, output_dir: Path, compression: str = COMPRESSION
+) -> dict[str, int]:
     """Concatenate the parts of each OMOP table into its output file.
 
     Tables without parts are written as typed empty frames, so every OMOP table
-    (including OBSERVATION and DEVICE_EXPOSURE) exists in the output.
+    (including OBSERVATION and DEVICE_EXPOSURE) exists in the output. compression is
+    the Parquet codec of the output files.
 
     Returns:
         Row count per table.
@@ -63,22 +66,30 @@ def merge_tables(work_dir: Path, output_dir: Path) -> dict[str, int]:
         path.parent.mkdir(parents=True, exist_ok=True)
         files = _part_files(work_dir, table_name)
         if files:
-            sink_parquet(_scan_parts(files), path)
+            sink_parquet(_scan_parts(files), path, compression=compression)
             row_counts[table_name] = _row_count(path)
         else:
-            write_parquet(pl.DataFrame(schema=schema.dtype_map), path)
+            write_parquet(
+                pl.DataFrame(schema=schema.dtype_map), path, compression=compression
+            )
             row_counts[table_name] = 0
         logger.info(f"  {table_name}: {row_counts[table_name]:,} rows")
     return row_counts
 
 
-def merge_excluded(work_dir: Path, output_dir: Path, tnx_tables: list[str]) -> None:
+def merge_excluded(
+    work_dir: Path,
+    output_dir: Path,
+    tnx_tables: list[str],
+    compression: str = COMPRESSION,
+) -> None:
     """Write output_dir/excluded/<tnx table>.parquet for every clinical table.
 
     Args:
         work_dir: Working directory with the parts.
         output_dir: Output folder; its excluded folder must exist.
         tnx_tables: TriNetX tables present in the input.
+        compression: Parquet codec of the output files.
     """
     excluded_dir = output_dir / tbl.excluded
     for tnx_table in tnx_tables:
@@ -87,9 +98,13 @@ def merge_excluded(work_dir: Path, output_dir: Path, tnx_tables: list[str]) -> N
         path = excluded_dir / f"{tnx_table}.parquet"
         files = _part_files(work_dir, f"{tbl.excluded}/{tnx_table}")
         if files:
-            sink_parquet(_scan_parts(files), path)
+            sink_parquet(_scan_parts(files), path, compression=compression)
         else:
-            write_parquet(pl.DataFrame(schema=_EXCLUDED_ONLY_SCHEMA), path)
+            write_parquet(
+                pl.DataFrame(schema=_EXCLUDED_ONLY_SCHEMA),
+                path,
+                compression=compression,
+            )
 
 
 def _percent(part: pl.Expr, total: pl.Expr) -> pl.Expr:

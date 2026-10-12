@@ -10,7 +10,7 @@ import polars as pl
 
 from ..util import columns as col
 from ..util import tables as tbl
-from ..util.parquet_io import write_parquet
+from ..util.parquet_io import COMPRESSION, write_parquet
 from .athena import scan_concepts, typed_concepts, unique_concepts
 from ..util.concept_mappings import SOURCE_VOCABULARY_MAP
 from ..schema.omop import CONCEPT_SCHEMA, ERA_SCHEMAS, OMOP_SCHEMAS
@@ -193,7 +193,10 @@ def build_concepts(
 
 
 def create_concept_table(
-    output_dir: Path, vocab_dir: Path, terminology: Optional[pl.DataFrame] = None
+    output_dir: Path,
+    vocab_dir: Path,
+    terminology: Optional[pl.DataFrame] = None,
+    compression: str = COMPRESSION,
 ) -> pl.DataFrame:
     """Write the CONCEPT rows of every concept ID referenced by the output tables.
 
@@ -206,6 +209,7 @@ def create_concept_table(
         vocab_dir: Folder with the Athena CSV files.
         terminology: Output of load_terminology(), used to name concepts whose
             Athena name is empty (CPT4).
+        compression: Parquet codec of the output file.
 
     Returns:
         CONCEPT DataFrame sorted by concept_id.
@@ -237,5 +241,5 @@ def create_concept_table(
 
     path = table_path(output_dir, tbl.omop_concept)
     path.parent.mkdir(parents=True, exist_ok=True)
-    write_parquet(concepts, path)
+    write_parquet(concepts, path, compression=compression)
     return concepts

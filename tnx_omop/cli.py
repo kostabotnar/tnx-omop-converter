@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .quality import dqd
 from .pipeline.ingest import DEFAULT_BATCH_ROWS
+from .util.parquet_io import COMPRESSION, COMPRESSIONS
 
 CONVERT = "convert"
 VALIDATE = "validate"
@@ -116,6 +117,16 @@ def _add_convert_parser(subparsers: argparse._SubParsersAction) -> None:
             "Write CONDITION_ERA and DRUG_ERA (OHDSI standard logic, 30 day "
             "persistence window; default: on); needs CONCEPT_ANCESTOR.csv in "
             "--vocab-dir, --no-eras skips them"
+        ),
+    )
+    parser.add_argument(
+        "--compression",
+        choices=COMPRESSIONS,
+        default=COMPRESSION,
+        help=(
+            "Parquet compression codec of the output files "
+            f"(default: {COMPRESSION}); temporary files in the working folder "
+            "always use lz4"
         ),
     )
     _add_config_argument(parser)

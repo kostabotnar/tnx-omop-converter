@@ -49,7 +49,7 @@ from ..util import concept_mappings
 from .run_report import build_report, excluded_row_counts, write_report
 from ..schema.trinetx import load_data_dictionary
 from ..util import tables as tbl
-from ..util.parquet_io import write_parquet
+from ..util import parquet_io
 from ..util.run_stats import RunStats
 
 logger = logging.getLogger(__name__)
@@ -142,6 +142,7 @@ def convert(
     config_path: Path | None = None,
     export_vocabulary: bool = True,
     eras: bool = True,
+    compression: str = parquet_io.COMPRESSION,
 ) -> dict[str, int]:
     """Convert TriNetX zip file(s) to OMOP parquet files.
 
@@ -178,18 +179,28 @@ def convert(
             the resume fingerprint. When False, the era tables of an earlier
             run in output_dir are removed, because they would not match the new
             tables.
+        compression: Parquet codec of the final output files, one of
+            parquet_io.COMPRESSIONS (default zstd). Temporary files in the working
+            directory always use lz4. The final files are rewritten on every run, so
+            the codec is not part of the resume fingerprint.
 
     Returns:
         Dictionary with row counts for each output table, including the exported
         vocabulary tables and the era tables
 
     Raises:
+        ValueError: compression is not one of parquet_io.COMPRESSIONS (before any work)
         DataDictionaryError: an input ZIP has no readable datadictionary.xlsx, or
             the data dictionaries of the input ZIP files differ (before any work)
         ConfigError: config_path is unreadable or invalid (before any work)
         FileNotFoundError: eras is set and vocab_dir has no CONCEPT_ANCESTOR.csv
             (before any work)
     """
+    if compression not in parquet_io.COMPRESSIONS:
+        raise ValueError(
+            f"Unknown compression {compression!r}; "
+            f"choose one of {', '.join(parquet_io.COMPRESSIONS)}"
+        )
     dictionary = load_data_dictionary(input_zips)
     if eras:
         missing = era_builder.missing_vocabulary_files(vocab_dir)
@@ -256,12 +267,12 @@ def convert(
 
         logger.info("\nWriting OMOP tables...")
         with stats.stage(STAGE_MERGE):
-            row_counts = merge_tables(work_dir, output_dir)
-            merge_excluded(work_dir, output_dir, result.tables)
+            row_counts = merge_tables(work_dir, output_dir, compression)
+            merge_excluded(work_dir, output_dir, result.tables, compression)
 
         logger.info("\nCreating observation period and CDM source tables...")
         with stats.stage(STAGE_OBSERVATION_PERIOD):
-            observation_df = create_observation_period(output_dir)
+            observation_df = create_observation_period(output_dir, compression)
         row_counts[tbl.omop_observation_period] = len(observation_df)
         logger.info(f"  {tbl.omop_observation_period}: {len(observation_df):,} rows")
 
@@ -272,7 +283,9 @@ def convert(
             )
             cdm_source_path = table_path(output_dir, tbl.omop_cdm_source)
             cdm_source_path.parent.mkdir(parents=True, exist_ok=True)
-            write_parquet(cdm_source_df, cdm_source_path)
+            parquet_io.write_parquet(
+                cdm_source_df, cdm_source_path, compression=compression
+            )
         row_counts[tbl.omop_cdm_source] = len(cdm_source_df)
         logger.info(f"  {tbl.omop_cdm_source}: {len(cdm_source_df)} rows")
 
@@ -280,7 +293,9 @@ def convert(
             logger.info("\nBuilding condition and drug eras...")
             with stats.stage(STAGE_ERAS):
                 row_counts.update(
-                    era_builder.build_eras(output_dir, vocab_dir, work_dir, batch_rows)
+                    era_builder.build_eras(
+                        output_dir, vocab_dir, work_dir, batch_rows, compression
+                    )
                 )
 
         logger.info("\nCreating concept table...")
@@ -290,7 +305,9 @@ def convert(
                 logger.info(
                     "  standardized_terminology.csv not found, empty names become codes"
                 )
-            concept_df = create_concept_table(output_dir, vocab_dir, terminology)
+            concept_df = create_concept_table(
+                output_dir, vocab_dir, terminology, compression
+            )
         row_counts[tbl.omop_concept] = len(concept_df)
         logger.info(f"  {tbl.omop_concept}: {len(concept_df):,} rows")
 
@@ -298,7 +315,7 @@ def convert(
             logger.info("\nExporting the full Athena vocabulary tables...")
             with stats.stage(STAGE_VOCABULARY_EXPORT):
                 exported = vocabulary_export.export_vocabulary(
-                    output_dir, vocab_dir, terminology
+                    output_dir, vocab_dir, terminology, compression
                 )
             row_counts.update(exported)
 
@@ -323,6 +340,7 @@ def convert(
         excluded_rows=excluded_row_counts(coverage),
         stats=stats,
         config_path=config_path,
+        compression=compression,
     )
     write_report(output_dir, report)
 

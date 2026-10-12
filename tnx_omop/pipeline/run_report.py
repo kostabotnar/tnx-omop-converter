@@ -20,6 +20,7 @@ import polars as pl
 from ..schema.domains import DOMAIN_TABLES
 from ..util import columns as col
 from ..util.concept_mappings import describe_config
+from ..util.parquet_io import COMPRESSION
 from ..util.run_stats import RunStats
 
 REPORT_FILE = "run_report.json"
@@ -67,6 +68,7 @@ def build_report(
     excluded_rows: dict[str, int],
     stats: RunStats,
     config_path: Path | None = None,
+    compression: str = COMPRESSION,
 ) -> dict[str, Any]:
     """Collect the content of run_report.json.
 
@@ -85,6 +87,7 @@ def build_report(
         excluded_rows: Excluded rows per TriNetX table.
         stats: Time and memory measurements of the stages, already stopped.
         config_path: User config file with concept map overrides, or None.
+        compression: Parquet codec of the final output files.
 
     Returns:
         JSON-serializable dictionary. Peak memory values are null when the platform
@@ -105,6 +108,7 @@ def build_report(
         "vocabulary": {"path": str(vocab_dir), "version": vocabulary_version},
         "config": describe_config(config_path),
         "batch_rows": batch_rows,
+        "compression": compression,
         "batch_count": batch_count,
         "person_count": person_count,
         "resumed": resumed,

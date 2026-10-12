@@ -127,6 +127,7 @@ def _run_convert(args: argparse.Namespace) -> int:
         config_path=args.config,
         export_vocabulary=args.export_vocabulary,
         eras=args.eras,
+        compression=args.compression,
     )
     return 0
 
