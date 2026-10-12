@@ -10,7 +10,7 @@ import polars as pl
 
 from ..util import columns as col
 from ..util import tables as tbl
-from ..util.parquet_io import write_parquet
+from ..util.parquet_io import COMPRESSION, write_parquet
 from ..transformers.observation_period import build_observation_period
 
 # Date columns that bound a person's observation time, per OMOP table
@@ -31,7 +31,9 @@ _EVENT_DATES = [
 ]
 
 
-def create_observation_period(output_dir: Path) -> pl.DataFrame:
+def create_observation_period(
+    output_dir: Path, compression: str = COMPRESSION
+) -> pl.DataFrame:
     """Create one observation period per person spanning all of their records.
 
     Reads output_dir/{table}/{table}.parquet and writes
@@ -40,6 +42,7 @@ def create_observation_period(output_dir: Path) -> pl.DataFrame:
 
     Args:
         output_dir: Base output directory containing OMOP tables
+        compression: Parquet codec of the output file
 
     Returns:
         OBSERVATION_PERIOD DataFrame
@@ -81,6 +84,6 @@ def create_observation_period(output_dir: Path) -> pl.DataFrame:
     table_lower = tbl.omop_observation_period.lower()
     out_dir = output_dir / table_lower
     out_dir.mkdir(parents=True, exist_ok=True)
-    write_parquet(periods, out_dir / f"{table_lower}.parquet")
+    write_parquet(periods, out_dir / f"{table_lower}.parquet", compression=compression)
 
     return periods
